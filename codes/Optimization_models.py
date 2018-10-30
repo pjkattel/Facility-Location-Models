@@ -14,7 +14,7 @@ def dependent_model_reg(demand,candidate,candidate_pre,pre_cap,ss_layer,rank,fix
      
      #initializing the model
      m = Model()
-     m.update()
+     
      
 
      #assigning some "default values" the model specific
@@ -25,10 +25,11 @@ def dependent_model_reg(demand,candidate,candidate_pre,pre_cap,ss_layer,rank,fix
      #variable assignment
 
      loc = m.addVars(candidate,name = "x", vtype = GRB.BINARY)  #facility located 
-     sup = m.addVars(demand, candidate, name = "y")
-     cap = m.addVars(candidate, name ="k")
-     addcap = m.addVars(candidate, name ="w")
+     sup = m.addVars(demand, candidate, name = "y")  #Supply assigned
+     cap = m.addVars(candidate, name ="k")  #capacity allocated
+     addcap = m.addVars(candidate, name ="w") # added capacity  ( equals to the cap - cmin for new facility and cap- precap for already established facility) 
      
+     m.update()
      
      #Objective function breakdown    
      #operating cost 
